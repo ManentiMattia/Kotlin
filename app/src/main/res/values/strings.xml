@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Kotlin</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="intro_title">Online Shop \n Many things to discover\n <font color="purple">All for you</font></string>
+    <string name="intro_text">Scopri le ultime novità \nScelti esclusivamente per te</string>
+    <string name="signin">Hai gia un account?<font color="purple"> Accedi</font></string>
+</resources>
