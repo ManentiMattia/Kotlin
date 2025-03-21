@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?android:attr/ambientShadowAlpha">
+    android:paddingTop="8dp"
+    tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="14dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,21 +35,24 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="64dp"
                         android:text="Benvenuto"
                         android:textColor="@color/white"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" /> <!-- Corretto: Top invece di Start per l'allineamento verticale -->
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="8dp"
                         android:text="Utente"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        tools:layout_editor_absoluteY="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/textView4" /> <!-- Posizionamento sotto textView4 -->
+                        app:layout_constraintTop_toBottomOf="@id/textView4" />
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -57,9 +65,50 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
                         app:srcCompat="@drawable/ic_notifications_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/textView2"
+                        android:layout_width="367dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/white_bg"
+                        android:ems="10"
+                        android:hint="Cerca ..."
+                        android:inputType="text"
+                        android:text="Name"
+                        tools:layout_editor_absoluteX="22dp"
+                        tools:layout_editor_absoluteY="117dp"
+                        android:drawableStart="@drawable/ic_dashboard_black_24dp"
+                        android:drawablePadding="8dp"
+                        android:padding="8dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/purple_200" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="16dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    tools:layout_editor_absoluteX="175dp"
+                    tools:layout_editor_absoluteY="0dp" >
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="182dp"
+                    tools:layout_editor_absoluteY="65dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
