@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="580dp"
                 app:srcCompat="@drawable/ic_imageshopintro" />
 
             <TextView
@@ -31,16 +31,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/intro_text"
-                android:textAlignment="center"
-                android:textSize="17sp" />
 
             <Button
                 android:id="@+id/startBtn"
@@ -60,6 +50,17 @@
                 android:text="@string/signin"
                 android:textAlignment="center"
                 android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/intro_text"
+                android:textAlignment="center"
+                android:textSize="17sp" />
+
         </LinearLayout>
     </ScrollView>
 
