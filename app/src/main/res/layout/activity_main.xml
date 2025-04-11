@@ -112,7 +112,7 @@
                 android:layout_marginTop="16dp">
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager2"
+                    android:id="@+id/viewPagerSlider"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -285,7 +285,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/imageView4"
+
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
@@ -293,7 +293,7 @@
                         app:srcCompat="@drawable/btn_1" />
 
                     <TextView
-                        android:id="@+id/textView9"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"

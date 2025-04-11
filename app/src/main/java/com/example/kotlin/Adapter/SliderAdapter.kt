@@ -29,7 +29,7 @@ class SliderAdapter(
 
 
     class SliderViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val imageView:ImageView=itemView.findViewById(R.id.ImageSlide)
+        private val imageView:ImageView=itemView.findViewById(R.id.imageSlide)
 
         fun setImage(sliderItems:SliderModel ,context:Context){
             val requestOptions=RequestOptions().transform(CenterInside())
@@ -37,7 +37,7 @@ class SliderAdapter(
             Glide.with(context)
                 .load(sliderItems.url)
                 .apply(requestOptions)
-                .into(ImageView)
+                .into(imageView)
 
         }
     }
@@ -52,11 +52,8 @@ class SliderAdapter(
         return SliderViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        holder: SliderAdapter.SliderViewHolder,
-        position: Int
-    ) {
-        holder.setImage(sliderItems(position),context)
+    override fun onBindViewHolder(holder: SliderAdapter.SliderViewHolder, position: Int) {
+        holder.setImage(sliderItems[position], context)
 
         if(position==sliderItems.lastIndex-1){
             viewPager2.post(runnable)
