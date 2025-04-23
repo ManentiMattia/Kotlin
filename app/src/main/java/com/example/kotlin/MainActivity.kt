@@ -8,12 +8,16 @@ package com.example.kotlin
     import androidx.core.view.ViewCompat
     import androidx.core.view.WindowInsetsCompat
     import androidx.lifecycle.Observer
-    
+    import androidx.recyclerview.widget.GridLayoutManager
+    import androidx.recyclerview.widget.LinearLayoutManager
+
     import com.example.kotlin.ViewModel.MainViewModel
     
     import androidx.recyclerview.widget.RecyclerView
     import androidx.viewpager2.widget.CompositePageTransformer
     import androidx.viewpager2.widget.MarginPageTransformer
+    import com.example.kotlin.Adapter.BestSellerAdapter
+    import com.example.kotlin.Adapter.CategoryAdapter
     import com.example.kotlin.Adapter.SliderAdapter
     import com.example.kotlin.Model.SliderModel
     import com.example.kotlin.databinding.ActivityMainBinding
@@ -30,6 +34,29 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)  // Usa il binding per settare il contenuto
 
         initBanners()
+        initCategories()
+        initBestSeller()
+    }
+
+    private fun initBestSeller() {
+        binding.progressBarBestSeller.visibility=View. VISIBLE
+        viewModel.bestSeller. observe(this, Observer {
+            binding.viewBestSeller.layoutManager = GridLayoutManager(this, 2)
+            binding.viewBestSeller.adapter = BestSellerAdapter(it)
+            binding.progressBarBestSeller.visibility = View.GONE
+        })
+            viewModel.loadBestSeller()
+    }
+
+    private fun initCategories() {
+        binding.progressBarCategory. visibility = View. VISIBLE
+        viewModel.category.observe(this, Observer {
+            binding.viewCategory.layoutManager =
+                LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+            binding.viewCategory.adapter = CategoryAdapter(it)
+            binding.progressBarCategory.visibility=View.GONE
+        })
+            viewModel. loadCategory()
     }
 
     private fun initBanners() {
