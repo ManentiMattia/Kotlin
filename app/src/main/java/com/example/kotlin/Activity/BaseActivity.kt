@@ -1,4 +1,4 @@
-package com.example.kotlin
+package com.example.kotlin.Activity
 
 import android.os.Bundle
 import android.view.WindowManager

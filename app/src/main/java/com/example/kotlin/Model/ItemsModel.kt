@@ -18,8 +18,8 @@ data class ItemsModel(
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
-        TODO("picUrl"),
-        TODO("size"),
+        parcel.createStringArrayList() as ArrayList<String>,
+        parcel.createStringArrayList() as ArrayList<String>,
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readInt(),
@@ -32,6 +32,8 @@ data class ItemsModel(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeString(description)
+        parcel.writeStringList(picUrl)
+        parcel.writeStringList(size)
         parcel.writeDouble(price)
         parcel.writeDouble(rating)
         parcel.writeInt(numberInCart)

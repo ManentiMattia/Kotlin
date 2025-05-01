@@ -1,25 +1,31 @@
 package com.example.kotlin.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.kotlin.Activity.DetailActivity
 import com.example.kotlin.Model.ItemsModel
 import com.example.kotlin.databinding.ViewholderBestSellerBinding
 
-class BestSellerAdapter(val items: MutableList<ItemsModel>): RecyclerView.Adapter<BestSellerAdapter.Viewholder>() {
+class BestSellerAdapter(val items: MutableList<ItemsModel>):
+    RecyclerView.Adapter<BestSellerAdapter.Viewholder>() {
     private var context:Context?=null
-    class Viewholder(val binding: ViewholderBestSellerBinding):RecyclerView.ViewHolder(binding.root)
+
+    class Viewholder(val binding: ViewholderBestSellerBinding):
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BestSellerAdapter.Viewholder {
        context=parent.context
-        val binding= ViewholderBestSellerBinding.inflate(LayoutInflater.from(context),parent,false)
+        val binding=
+            ViewholderBestSellerBinding.inflate(LayoutInflater.from(context),parent,false)
         return Viewholder(binding)
     }
 
@@ -34,6 +40,11 @@ class BestSellerAdapter(val items: MutableList<ItemsModel>): RecyclerView.Adapte
             .apply(requestOption)
             .into(holder.binding.picBestSeller)
 
+        holder.itemView.setOnClickListener {
+            val intent=Intent(holder.itemView.context, DetailActivity::class.java)
+            intent.putExtra("object", items[position])
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int =items.size
