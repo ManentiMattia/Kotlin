@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlin.Activity.BaseActivity
 import com.example.kotlin.Activity.CartActivity
+import com.example.kotlin.Activity.WishActivity
 import com.example.kotlin.Adapter.BestSellerAdapter
 import com.example.kotlin.Adapter.CategoryAdapter
 import com.example.kotlin.Adapter.SliderAdapter
@@ -44,6 +45,7 @@ class MainActivity : BaseActivity() {
         initSearch()
         bottomNavigation()
         HomeNavigation()
+        WishNavigation()
     }
 
     private fun bottomNavigation() {
@@ -55,6 +57,11 @@ class MainActivity : BaseActivity() {
     private fun HomeNavigation() {
         binding.esploraBtn.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+        }
+    }
+    private fun WishNavigation() {
+        binding.WishBtn.setOnClickListener {
+            startActivity(Intent(this, WishActivity::class.java))
         }
     }
 
