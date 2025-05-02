@@ -12,7 +12,7 @@ import com.example.kotlin.Model.ItemsModel
 import com.example.kotlin.databinding.ViewholderBestSellerBinding
 import com.example.kotlin.Activity.DetailActivity
 
-class ListItemsAdapter(private val items: MutableList<ItemsModel>) :
+class ListItemsAdapter(private var items: List<ItemsModel>) :
     RecyclerView.Adapter<ListItemsAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -36,7 +36,7 @@ class ListItemsAdapter(private val items: MutableList<ItemsModel>) :
         val requestOption = RequestOptions().transform(CenterCrop())
 
         Glide.with(context)
-            .load(item.picUrl.firstOrNull()) // fallback se l'immagine è vuota
+            .load(item.picUrl.firstOrNull())
             .apply(requestOption)
             .into(holder.binding.picBestSeller)
 
@@ -48,4 +48,10 @@ class ListItemsAdapter(private val items: MutableList<ItemsModel>) :
     }
 
     override fun getItemCount(): Int = items.size
+
+    // ✅ Metodo per aggiornare dinamicamente la lista
+    fun updateList(newItems: List<ItemsModel>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
 }

@@ -7,12 +7,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kotlin.Adapter.ListItemsAdapter
 import com.example.kotlin.ViewModel.MainViewModel
 import com.example.kotlin.databinding.ActivityListItemsBinding
+import android.text.Editable
+import android.text.TextWatcher
+import com.example.kotlin.Model.ItemsModel
 
 class ListItemsActivity : BaseActivity() {
     private lateinit var binding: ActivityListItemsBinding
     private val viewModel = MainViewModel()
     private var id: String = ""
     private var title: String = ""
+    private var fullItemList: List<ItemsModel> = listOf()
+
+    private lateinit var adapter: ListItemsAdapter  // 🔧 adapter salvato per filtro
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,31 +26,49 @@ class ListItemsActivity : BaseActivity() {
         setContentView(binding.root)
 
         SetVariable()
-        getBundle()  // Estrai l'ID della categoria e il titolo
-        initList()   // Inizializza la lista
-        viewModel.loadFiltered(id)  // Carica i prodotti per l'ID della categoria selezionata
+        getBundle()
+        initList()
+        viewModel.loadFiltered(id)
     }
 
     private fun initList() {
         binding.apply {
-            progressBarList.visibility = View.VISIBLE  // Mostra il progress bar mentre carichi
+            progressBarList.visibility = View.VISIBLE
+
+            adapter = ListItemsAdapter(mutableListOf())  // inizializzato vuoto
+            viewList.layoutManager = GridLayoutManager(this@ListItemsActivity, 2)
+            viewList.adapter = adapter
+
             viewModel.bestSeller.observe(this@ListItemsActivity, Observer { items ->
-                // Quando i dati sono disponibili, imposta l'adapter del RecyclerView
-                viewList.layoutManager = GridLayoutManager(this@ListItemsActivity, 2)
-                viewList.adapter = ListItemsAdapter(items)
-                progressBarList.visibility = View.GONE  // Nascondi il progress bar dopo il caricamento
+                fullItemList = items
+                adapter.updateList(items)  // 🔄 aggiorna lista
+                progressBarList.visibility = View.GONE
             })
         }
     }
 
     private fun getBundle() {
-        id = intent.getStringExtra("id") ?: ""  // Ottieni l'ID della categoria dal bundle
+        id = intent.getStringExtra("id") ?: ""
         title = intent.getStringExtra("title") ?: ""
+        binding.categoryTxt.text = title
+    }
 
-        binding.categoryTxt.text = title  // Mostra il titolo della categoria
+    private fun filterList(query: String) {
+        val filtered = fullItemList.filter {
+            it.title.contains(query, ignoreCase = true)
+        }
+        adapter.updateList(filtered)  // ✅ usa updateList() dell'adapter
     }
 
     private fun SetVariable() {
         binding.backBtn.setOnClickListener { finish() }
+
+        binding.searchTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterList(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 }

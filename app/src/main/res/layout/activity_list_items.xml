@@ -40,12 +40,29 @@
                     android:text="title"
                     android:textSize="16dp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <EditText
+                android:id="@+id/searchTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/white_bg"
+                android:drawableStart="@drawable/search_icon"
+                android:drawablePadding="8dp"
+                android:ems="10"
+                android:hint="Cerca ..."
+                android:inputType="text"
+                android:padding="8dp"
+                android:textColor="@color/purple_500"
+                android:textSize="16sp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/viewList"
                 android:layout_width="match_parent"
