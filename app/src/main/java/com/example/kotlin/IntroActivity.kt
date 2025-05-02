@@ -2,6 +2,7 @@ package com.example.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.kotlin.Activity.BaseActivity
 import com.example.kotlin.MainActivity
 import com.example.kotlin.databinding.ActivityIntroBinding
@@ -9,6 +10,7 @@ import com.example.kotlin.databinding.ActivityIntroBinding
 class IntroActivity : BaseActivity() {
     private lateinit var binding: ActivityIntroBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO) //Forza white mode
         super.onCreate(savedInstanceState)
         binding= ActivityIntroBinding.inflate(layoutInflater)
         setContentView(binding.root)
