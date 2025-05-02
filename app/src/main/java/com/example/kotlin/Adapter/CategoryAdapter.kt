@@ -87,7 +87,7 @@ class CategoryAdapter(val items:MutableList<CategoryModel>) :
                     putExtra("title", item.title)
                 }
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
-            }, 1000)
+            }, 100)
         }
 
             holder.binding.titleCat.visibility = View.GONE

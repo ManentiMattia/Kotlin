@@ -2,6 +2,7 @@ package com.example.kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
@@ -32,7 +33,7 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)  // Usa il binding per settare il contenuto
 
         initBanners()
-        initCategories()
+        initCategory()
         initBestSeller()
         bottomNavigation()
     }
@@ -42,25 +43,34 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initBestSeller() {
-        binding.progressBarBestSeller.visibility= View. VISIBLE
-        viewModel.bestSeller. observe(this, Observer {
-            binding.viewBestSeller.layoutManager = GridLayoutManager(this, 2)
+        binding.progressBarBestSeller.visibility = View.VISIBLE
+        viewModel.bestSeller.observe(this, Observer {
+            binding.viewBestSeller.layoutManager = GridLayoutManager(this@MainActivity, 2)
             binding.viewBestSeller.adapter = BestSellerAdapter(it)
             binding.progressBarBestSeller.visibility = View.GONE
         })
-            viewModel.loadBestSeller()
+        viewModel.loadBestSeller()
     }
 
-    private fun initCategories() {
-        binding.progressBarCategory. visibility = View. VISIBLE
+    private fun initCategory() {
+        binding.progressBarCategory.visibility = View.VISIBLE
         viewModel.category.observe(this, Observer {
+            if (it.isNullOrEmpty()) {
+                Log.d("MainActivity", "Nessuna categoria trovata")
+            } else {
+                Log.d("MainActivity", "Categorie caricate: ${it.size}")
+            }
+
             binding.viewCategory.layoutManager =
                 LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-            binding.viewCategory.adapter = CategoryAdapter(it)
+            val categoryAdapter = CategoryAdapter(it)
+            binding.viewCategory.adapter = categoryAdapter
+
             binding.progressBarCategory.visibility = View.GONE
         })
-            viewModel. loadCategory()
+        viewModel.loadCategory()
     }
+
 
     private fun initBanners() {
         binding.progressBarBanner.visibility = View.VISIBLE
@@ -82,12 +92,6 @@ class MainActivity : BaseActivity() {
             offscreenPageLimit = 3
             getChildAt(0)?.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
-
-        // Add transformer for pager effect ------------------- Rompe lo slider :(
-        /*val compositePageTransformer = CompositePageTransformer().apply {
-            addTransformer(MarginPageTransformer(40))
-        }
-        binding.viewPagerSlider.setPageTransformer(compositePageTransformer)*/
 
         // Show dots if more than 1 image
         if (images.size > 1) {

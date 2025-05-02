@@ -35,6 +35,7 @@ class BestSellerAdapter(val items: MutableList<ItemsModel>):
         holder.binding.ratingTxt.text=items[position].rating.toString()
 
         val requestOption= RequestOptions().transform(CenterCrop())
+
         Glide.with(holder.itemView.context)
             .load(items[position].picUrl[0])
             .apply(requestOption)
@@ -45,6 +46,23 @@ class BestSellerAdapter(val items: MutableList<ItemsModel>):
             intent.putExtra("object", items[position])
             holder.itemView.context.startActivity(intent)
         }
+        /*val item=items[position]
+
+        with(holder.binding){
+            titleTxt.text=item.title
+            priceTxt.text="$${item.price}"
+            ratingTxt.text=item.rating.toString()
+
+            Glide.with(holder.itemView.context)
+                .load(item.picUrl[0])
+                .into(holder.binding.picBestSeller)
+
+            root.setOnClickListener {
+
+            }
+        }*/
+
+
     }
 
     override fun getItemCount(): Int =items.size
