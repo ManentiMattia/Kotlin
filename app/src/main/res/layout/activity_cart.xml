@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Il tuo Carrello è Vuoto"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +67,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
@@ -78,24 +79,24 @@
                     android:id="@+id/copounEdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:background="#00ffffff"
                     android:ems="10"
-                    android:inputType="text"
                     android:hint="Inserisci il tuo Copoun"
-                    android:background="#00ffffff" />
+                    android:inputType="text"
+                    android:paddingStart="8dp"
+                    android:textSize="14sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    style="@android:style/Widget.Button"
-                    android:background="@drawable/purple_bg"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
                     android:id="@+id/applyCopoun"
+                    style="@android:style/Widget.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="38dp"
                     android:layout_weight="1"
-                    android:text="Applica" />
+                    android:background="@drawable/purple_bg"
+                    android:text="Applica"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

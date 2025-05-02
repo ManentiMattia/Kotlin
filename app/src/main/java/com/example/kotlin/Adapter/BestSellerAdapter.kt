@@ -12,40 +12,42 @@ import com.example.kotlin.Activity.DetailActivity
 import com.example.kotlin.Model.ItemsModel
 import com.example.kotlin.databinding.ViewholderBestSellerBinding
 
-class BestSellerAdapter(val items: MutableList<ItemsModel>):
+class BestSellerAdapter(private var items: MutableList<ItemsModel>) :
     RecyclerView.Adapter<BestSellerAdapter.Viewholder>() {
-    private var context:Context?=null
 
-    class Viewholder(val binding: ViewholderBestSellerBinding):
+    private var context: Context? = null
+
+    class Viewholder(val binding: ViewholderBestSellerBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BestSellerAdapter.Viewholder {
-       context=parent.context
-        val binding=
-            ViewholderBestSellerBinding.inflate(LayoutInflater.from(context),parent,false)
+        context = parent.context
+        val binding =
+            ViewholderBestSellerBinding.inflate(LayoutInflater.from(context), parent, false)
         return Viewholder(binding)
     }
 
     override fun onBindViewHolder(holder: BestSellerAdapter.Viewholder, position: Int) {
-        holder.binding.titleTxt.text=items[position].title
-        holder.binding.priceTxt.text="$"+items[position].price.toString()
-        holder.binding.ratingTxt.text=items[position].rating.toString()
+        holder.binding.titleTxt.text = items[position].title
+        holder.binding.priceTxt.text = "$" + items[position].price.toString()
+        holder.binding.ratingTxt.text = items[position].rating.toString()
 
-        val requestOption= RequestOptions().transform(CenterCrop())
+        val requestOption = RequestOptions().transform(CenterCrop())
 
         Glide.with(holder.itemView.context)
-            .load(items[position].picUrl[0])
+            .load(items[position].picUrl.firstOrNull())
             .apply(requestOption)
             .into(holder.binding.picBestSeller)
 
         holder.itemView.setOnClickListener {
-            val intent=Intent(holder.itemView.context, DetailActivity::class.java)
+            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
             intent.putExtra("object", items[position])
             holder.itemView.context.startActivity(intent)
         }
+
         /*val item=items[position]
 
         with(holder.binding){
@@ -61,9 +63,13 @@ class BestSellerAdapter(val items: MutableList<ItemsModel>):
 
             }
         }*/
-
-
     }
 
-    override fun getItemCount(): Int =items.size
+    override fun getItemCount(): Int = items.size
+
+    // ✅ Metodo per aggiornare dinamicamente la lista
+    fun updateList(newItems: List<ItemsModel>) {
+        items = newItems.toMutableList()
+        notifyDataSetChanged()
+    }
 }
