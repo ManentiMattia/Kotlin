@@ -33,6 +33,7 @@ class WishActivity : AppCompatActivity() {
         binding.viewList.adapter = adapter
 
         loadWishlist()
+        SetVariable()
     }
 
     private fun loadWishlist() {
@@ -73,6 +74,8 @@ class WishActivity : AppCompatActivity() {
                 }
             })
     }
-
+    private fun SetVariable() {
+        binding.backBtn.setOnClickListener { finish() }
+    }
 }
 
