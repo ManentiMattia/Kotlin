@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.kotlin.Activity.DetailActivity
 import com.example.kotlin.Model.ItemsModel
 import com.example.kotlin.databinding.ViewholderBestSellerBinding
+import com.example.kotlin.R
 
 class BestSellerAdapter(private var items: MutableList<ItemsModel>) :
     RecyclerView.Adapter<BestSellerAdapter.Viewholder>() {
@@ -31,20 +32,50 @@ class BestSellerAdapter(private var items: MutableList<ItemsModel>) :
     }
 
     override fun onBindViewHolder(holder: BestSellerAdapter.Viewholder, position: Int) {
-        holder.binding.titleTxt.text = items[position].title
-        holder.binding.priceTxt.text = "$" + items[position].price.toString()
-        holder.binding.ratingTxt.text = items[position].rating.toString()
+        val item = items[position]
 
+        // Imposta il titolo, il prezzo e il rating
+        holder.binding.titleTxt.text = item.title
+        holder.binding.priceTxt.text = "$" + item.price.toString()
+        holder.binding.ratingTxt.text = item.rating.toString()
+
+        // Carica l'immagine del prodotto
         val requestOption = RequestOptions().transform(CenterCrop())
-
         Glide.with(holder.itemView.context)
-            .load(items[position].picUrl.firstOrNull())
+            .load(item.picUrl.firstOrNull())
             .apply(requestOption)
             .into(holder.binding.picBestSeller)
 
+        // Modifica l'icona del cuore in base al valore di 'wish'
+        if (item.wish) {
+            holder.binding.addToWish.setImageResource(R.drawable.filled_icon) // Icona cuore pieno
+        } else {
+            holder.binding.addToWish.setImageResource(R.drawable.btn_3) // Icona cuore vuoto
+        }
+
+        // Aggiungi un click listener per l'icona del cuore
+        holder.binding.addToWish.setOnClickListener {
+            // Cambia lo stato del wish
+            item.wish = !item.wish
+
+            // Aggiorna l'icona
+            if (item.wish) {
+                holder.binding.addToWish.setImageResource(R.drawable.filled_icon)
+            } else {
+                holder.binding.addToWish.setImageResource(R.drawable.btn_3)
+            }
+
+            // Aggiungi la logica per aggiornare Firebase o altro storage (se necessario)
+            // Es: FirebaseDatabase.getInstance().getReference("Items").child(item.id).child("wish").setValue(item.wish)
+
+            // Potresti voler informare l'utente che l'elemento è stato aggiunto ai preferiti
+            // Es: Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
+        }
+
+        // Navigazione alla pagina di dettaglio
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailActivity::class.java)
-            intent.putExtra("object", items[position])
+            intent.putExtra("object", item)
             holder.itemView.context.startActivity(intent)
         }
 

@@ -15,7 +15,10 @@ data class ItemsModel(
     var sellerTell: Int=0,
     var sellerPic:String="",
     var categoryId: Int=0,
-    var wish: Boolean = false
+    var wish: Boolean = false,
+
+    var wishId: Int = 0
+
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -30,7 +33,8 @@ data class ItemsModel(
         parcel.readInt(),
         parcel.readString().toString(),
         parcel.readInt(),
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
+        parcel.readInt()
     ) {
     }
 
@@ -47,7 +51,7 @@ data class ItemsModel(
         parcel.writeString(sellerPic)
         parcel.writeInt(categoryId)
         parcel.writeByte(if (wish) 1 else 0)
-
+        parcel.writeInt(wishId)
     }
 
     override fun describeContents(): Int {
