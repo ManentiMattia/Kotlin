@@ -122,10 +122,11 @@
                             // Aggiorna l'icona in base allo stato di wish
                             if (item.wish) {
                                 binding.Favicon.setImageResource(R.drawable.fav1_icon) // Cuore pieno
+                                Toast.makeText(this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
                             } else {
                                 binding.Favicon.setImageResource(R.drawable.fav_icon) // Cuore vuoto
+                                Toast.makeText(this, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
                             }
-                            Toast.makeText(this, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
                             Toast.makeText(this, "Errore: ${e.message}", Toast.LENGTH_SHORT).show()
