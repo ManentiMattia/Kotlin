@@ -62,6 +62,7 @@
         }
 
         private fun getBundle(){
+
             item = intent.getParcelableExtra("object")!!
 
             binding.titleTxt.text = item.title
@@ -71,8 +72,11 @@
             binding.SellerNameTxt.text = item.sellerName
 
             // Imposta l'icona del cuore in base al valore di wish
-            if (item.wish) {
-                binding.Favicon.setImageResource(R.drawable.fav1_icon) // Cuore pieno se wish è true
+            if (item.wish == true) {
+                binding.Favicon.apply {
+                    setImageResource(R.drawable.fav1_icon)
+                    clearColorFilter()
+                }
             } else {
                 binding.Favicon.setImageResource(R.drawable.fav_icon) // Cuore vuoto se wish è false
             }
