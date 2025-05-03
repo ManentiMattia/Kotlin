@@ -46,55 +46,38 @@ class BestSellerAdapter(private var items: MutableList<ItemsModel>) :
             .apply(requestOption)
             .into(holder.binding.picBestSeller)
 
-        // Modifica l'icona del cuore in base al valore di 'wish'
-        if (item.wish) {
-            holder.binding.addToWish.setImageResource(R.drawable.filled_icon) // Icona cuore pieno
-        } else {
-            holder.binding.addToWish.setImageResource(R.drawable.btn_3) // Icona cuore vuoto
-        }
+        // Imposta l'icona iniziale del cuore
+        holder.binding.addToWish.setImageResource(
+            if (item.wish) R.drawable.filled_icon else R.drawable.btn_3
+        )
 
-        // Aggiungi un click listener per l'icona del cuore
+        // Click listener sull'icona del cuore
         holder.binding.addToWish.setOnClickListener {
-            // Cambia lo stato del wish
-            item.wish = !item.wish
+            item.wish = !item.wish // Cambia lo stato
 
-            // Aggiorna l'icona
-            if (item.wish) {
-                holder.binding.addToWish.setImageResource(R.drawable.filled_icon)
-            } else {
-                holder.binding.addToWish.setImageResource(R.drawable.btn_3)
+            // Cambia icona visiva
+            holder.binding.addToWish.setImageResource(
+                if (item.wish) R.drawable.filled_icon else R.drawable.btn_3
+            )
+
+            // ✅ Aggiorna Firebase se ha un ID valido
+            item.wishId?.let { id ->
+                val dbRef = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("Items")
+                dbRef.child(id.toString()).child("wish").setValue(item.wish)
             }
 
-            // Aggiungi la logica per aggiornare Firebase o altro storage (se necessario)
-            // Es: FirebaseDatabase.getInstance().getReference("Items").child(item.id).child("wish").setValue(item.wish)
-
-            // Potresti voler informare l'utente che l'elemento è stato aggiunto ai preferiti
-            // Es: Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
+            // ✅ (Facoltativo) Notifica all'utente
+            // Toast.makeText(holder.itemView.context, if (item.wish) "Aggiunto ai preferiti" else "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
         }
 
-        // Navigazione alla pagina di dettaglio
+        // Navigazione al dettaglio
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailActivity::class.java)
             intent.putExtra("object", item)
             holder.itemView.context.startActivity(intent)
         }
-
-        /*val item=items[position]
-
-        with(holder.binding){
-            titleTxt.text=item.title
-            priceTxt.text="$${item.price}"
-            ratingTxt.text=item.rating.toString()
-
-            Glide.with(holder.itemView.context)
-                .load(item.picUrl[0])
-                .into(holder.binding.picBestSeller)
-
-            root.setOnClickListener {
-
-            }
-        }*/
     }
+
 
     override fun getItemCount(): Int = items.size
 
